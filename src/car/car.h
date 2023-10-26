@@ -16,6 +16,9 @@ private:
 
 public:
     Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower);
+    ~Car();
+    Car(const Car &other);
+    Car(Car &&other) noexcept;
 
     void SetManufacturer(string manufacturer);
     void SetModel(string model);
