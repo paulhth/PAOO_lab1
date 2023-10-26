@@ -53,8 +53,16 @@ Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)),
                                  engine_capacity(other.engine_capacity),
                                  horsepower(other.horsepower)
 {
-    // This is the move constructor, it "steals" the resources from another object.
-    // After this operation, the other object should not use those resources anymore.
+    this->manufacturer = move(other.manufacturer);
+    this->model = move(other.model);
+    this->VIN = move(other.VIN);
+    this->gearbox = move(other.gearbox);
+    this->color = move(other.color);
+    this->year = other.year;
+    this->kilometers = other.kilometers;
+    this->engine_capacity = other.engine_capacity;
+    this->horsepower = other.horsepower;
+    this->features = new string(*other.features); // allocate memory for a new string and move the feature into it
 }
 
 void Car::Honk()
