@@ -17,11 +17,11 @@ Car::Car(string manufacturer, string model, string VIN, string gearbox, string c
 
 Car::~Car()
 {
-    // Currently, nothing is dynamically allocated.
-    // In the future, if you have any 'new' allocations, use 'delete' here to release memory.
+    cout << "Destructor: " << this->manufacturer << " - " << this->model << endl;
+    delete[] this->features;
 }
 
-Car::Car(const Car &other) : manufacturer(other.manufacturer),
+Car::Car(const Car &other) : manufacturer(other.manufacturer), // copy constructor
                              model(other.model),
                              VIN(other.VIN),
                              gearbox(other.gearbox),
@@ -31,7 +31,16 @@ Car::Car(const Car &other) : manufacturer(other.manufacturer),
                              engine_capacity(other.engine_capacity),
                              horsepower(other.horsepower)
 {
-    // This is the copy constructor, it initializes the current object using another object's values.
+    this->manufacturer = other.manufacturer;
+    this->model = other.model;
+    this->VIN = other.VIN;
+    this->gearbox = other.gearbox;
+    this->color = other.color;
+    this->year = other.year;
+    this->kilometers = other.kilometers;
+    this->engine_capacity = other.engine_capacity;
+    this->horsepower = other.horsepower;
+    this->features = new string(*other.features); // allocate memory for a new string and copy the feature into it
 }
 
 Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)),
@@ -51,4 +60,9 @@ Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)),
 void Car::Honk()
 {
     cout << this->manufacturer << " " << this->model << " Honked accidentally" << endl;
+}
+
+void Car::AddFeature(string feature)
+{
+    this->features = new string(feature); // allocate memory for a new string and copy the feature into it
 }

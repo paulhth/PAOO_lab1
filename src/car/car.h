@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 using namespace std;
 
@@ -13,6 +14,8 @@ private:
     int kilometers;
     int engine_capacity;
     int horsepower;
+
+    string *features;
 
 public:
     Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower);
@@ -39,4 +42,6 @@ public:
     int GetHorsepower();
 
     void Honk();
+    void AddFeature(string feature);
+    void PrintFeatures();
 };

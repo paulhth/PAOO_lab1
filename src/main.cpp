@@ -40,7 +40,7 @@ int main()
 {
     Car car1 = Car("BMW", "M3", "WBS8M9C50J5J78404", "Automatic", "Black", 2018, 0, 3000, 431);
     Car car2 = GenerateCar();
-    car2.Honk();
     car1.Honk();
+    car1.AddFeature("Heated seats, LSD");
     return 0;
 }
