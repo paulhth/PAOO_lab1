@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include "car.h"
 
 static int money;
@@ -40,16 +41,14 @@ Car GenerateCar()
 
 int main()
 {
-
     money = 100000;
     srand(static_cast<unsigned int>(time(nullptr)));
     Car car = GenerateCar();
-
     // 1. Using the copy constructor
     Car carCopy = car;
 
     // 2. Using the move constructor
-    Car movedCar = std::move(carCopy);
+    Car initialCar = std::move(carCopy);
 
     string name = car.GetManufacturer();
     if (name == "BMW")
@@ -77,12 +76,13 @@ int main()
     else
         money -= 10000;
 
-    cout << "You have 100000$ and your car is a " << name << " " << car.GetModel() << endl
-         << "Drive?" << endl;
+    cout << "You have " << money << " and your car is a " << name << " " << car.GetModel() << endl
+         << "Drive? y/n" << endl;
     char answer;
     cin >> answer;
 
     if (answer == 'y' || answer == 'Y')
+    {
         for (int i = 0; i < 100; i++)
         {
             car.Drive();
@@ -106,21 +106,35 @@ int main()
                 break;
 
             case 4:
-                car.AddFeature("Infotainment update");
+                car.AddFeature("Infotainment update - 1000$");
                 money -= 1000;
                 break;
 
             case 5:
-                car.AddFeature("Repaint");
+                car.AddFeature("Repaint: - 1000$");
                 money -= 1000;
                 break;
+            case 6:
+                car.Honk();
+                break;
+            case 7:
+                std::cout << "You crashed your car! - 700$" << endl;
+                money -= 7000;
+                break;
             default:
-                money -= 100; // gas
+                money -= 20; // gas
                 break;
             }
         }
-    cout << "Balance: " << money << "$" << endl;
-    cout << "Original car kilometers done: " << car.GetKilometers() << endl;
-    cout << "Kilometers done in total by moving the car: " << movedCar.GetKilometers() << endl;
+        cout << "---------------------STATS---------------------" << endl;
+        cout << "Balance: " << money << "$" << endl;
+        cout << "Original car kilometers done: " << car.GetKilometers() << endl;
+        cout << "Kilometers done before driving the car: " << initialCar.GetKilometers() << endl;
+        cout << "Kilometers done in total: " << car.GetKilometers() - initialCar.GetKilometers() << endl;
+    }
+    else
+    {
+        std::cout << "Happy walking!" << endl;
+    }
     return 0;
 }

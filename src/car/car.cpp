@@ -59,7 +59,7 @@ Car::Car(Car &&other) noexcept
 
 void Car::Honk()
 {
-    cout << this->manufacturer << " " << this->model << " Honked accidentally" << endl;
+    cout << this->manufacturer << " " << this->model << " Honked at another driver at " << this->GetKilometers() << "km" << endl;
 }
 
 void Car::AddFeature(string feature)
@@ -75,23 +75,28 @@ void Car::PrintFeatures()
 
 void Car::ChangeTires()
 {
-    cout << this->manufacturer << " " << this->model << " - Tires changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Tires changed - 4000$" << endl;
 }
 
 void Car::ChangeOil()
 {
-    cout << this->manufacturer << " " << this->model << " - Oil changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Oil changed - 1000$" << endl;
 }
 
 void Car::ChangeBrakes()
 {
-    cout << this->manufacturer << " " << this->model << " - Brakes changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Brakes changed - 800$" << endl;
 }
 
 void Car::Drive()
 {
     this->kilometers += 100;
-    cout << this->manufacturer << " " << this->model << " - Driven 100km" << endl;
+    cout << this->manufacturer << " " << this->model << " - Driven 100km - 100$" << endl;
+}
+
+int Crash()
+{
+    return 0;
 }
 
 string Car::GetManufacturer()
