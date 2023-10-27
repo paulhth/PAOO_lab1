@@ -43,7 +43,7 @@ Car::Car(const Car &other) : manufacturer(other.manufacturer), // copy construct
     this->features = new string(*other.features); // allocate memory for a new string and copy the feature into it
 }
 
-Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)),
+Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)), // noexcept = the function will not throw any exceptions
                                  model(std::move(other.model)),
                                  VIN(std::move(other.VIN)),
                                  gearbox(std::move(other.gearbox)),
@@ -73,4 +73,89 @@ void Car::Honk()
 void Car::AddFeature(string feature)
 {
     this->features = new string(feature); // allocate memory for a new string and copy the feature into it
+}
+
+void Car::PrintFeatures()
+{
+    cout << this->manufacturer << " " << this->model << " - Features: " << *this->features << endl;
+}
+
+string Car::GetManufacturer()
+{
+    return this->manufacturer;
+}
+
+string Car::GetModel()
+{
+    return this->model;
+}
+
+string Car::GetVIN()
+{
+    return this->VIN;
+}
+
+string Car::getColor()
+{
+    return this->color;
+}
+
+int Car::GetYear()
+{
+    return this->year;
+}
+
+int Car::GetKilometers()
+{
+    return this->kilometers;
+}
+
+int Car::GetEngineCapacity()
+{
+    return this->engine_capacity;
+}
+
+int Car::GetHorsepower()
+{
+    return this->horsepower;
+}
+
+void Car::SetManufacturer(string manufacturer)
+{
+    this->manufacturer = manufacturer;
+}
+
+void Car::SetModel(string model)
+{
+    this->model = model;
+}
+
+void Car::SetVIN(string VIN)
+{
+    this->VIN = VIN;
+}
+
+void Car::SetColor(string color)
+{
+    this->color = color;
+}
+
+void Car::SetYear(int year)
+{
+    this->year = year;
+}
+
+void Car::SetKilometers(int kilometers)
+{
+    this->kilometers = kilometers;
+}
+
+void Car::SetEngineCapacity(int engine_capacity)
+{
+    this->engine_capacity = engine_capacity;
+}
+
+void Car::SetHorsepower(int horsepower)
+{
+    this->horsepower = horsepower;
 }
