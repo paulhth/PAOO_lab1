@@ -44,4 +44,8 @@ public:
     void Honk();
     void AddFeature(string feature);
     void PrintFeatures();
+    void Drive();
+    void ChangeTires();
+    void ChangeOil();
+    void ChangeBrakes();
 };

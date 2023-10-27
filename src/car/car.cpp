@@ -73,11 +73,33 @@ void Car::Honk()
 void Car::AddFeature(string feature)
 {
     this->features = new string(feature); // allocate memory for a new string and copy the feature into it
+    std::cout << "Added feature: " << feature << std::endl;
 }
 
 void Car::PrintFeatures()
 {
     cout << this->manufacturer << " " << this->model << " - Features: " << *this->features << endl;
+}
+
+void Car::ChangeTires()
+{
+    cout << this->manufacturer << " " << this->model << " - Tires changed" << endl;
+}
+
+void Car::ChangeOil()
+{
+    cout << this->manufacturer << " " << this->model << " - Oil changed" << endl;
+}
+
+void Car::ChangeBrakes()
+{
+    cout << this->manufacturer << " " << this->model << " - Brakes changed" << endl;
+}
+
+void Car::Drive()
+{
+    this->kilometers += 100;
+    cout << this->manufacturer << " " << this->model << " - Driven 100km" << endl;
 }
 
 string Car::GetManufacturer()
