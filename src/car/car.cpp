@@ -17,52 +17,44 @@ Car::Car(string manufacturer, string model, string VIN, string gearbox, string c
 
 Car::~Car()
 {
-    cout << "Destructor: " << this->manufacturer << " - " << this->model << endl;
-    delete[] this->features;
+    if (this->features != nullptr && this->manufacturer != "" && this->model != "")
+    {
+        cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
+        delete features;
+    }
 }
 
-Car::Car(const Car &other) : manufacturer(other.manufacturer), // copy constructor
-                             model(other.model),
-                             VIN(other.VIN),
-                             gearbox(other.gearbox),
-                             color(other.color),
-                             year(other.year),
-                             kilometers(other.kilometers),
-                             engine_capacity(other.engine_capacity),
-                             horsepower(other.horsepower)
+// Copy constructor
+Car::Car(const Car &other)
+    : manufacturer(other.manufacturer),
+      model(other.model),
+      VIN(other.VIN),
+      gearbox(other.gearbox),
+      color(other.color),
+      year(other.year),
+      kilometers(other.kilometers),
+      engine_capacity(other.engine_capacity),
+      horsepower(other.horsepower)
 {
-    this->manufacturer = other.manufacturer;
-    this->model = other.model;
-    this->VIN = other.VIN;
-    this->gearbox = other.gearbox;
-    this->color = other.color;
-    this->year = other.year;
-    this->kilometers = other.kilometers;
-    this->engine_capacity = other.engine_capacity;
-    this->horsepower = other.horsepower;
-    this->features = new string(*other.features); // allocate memory for a new string and copy the feature into it
+    // Assuming 'features' is a pointer to a single string
+    this->features = other.features;
 }
 
-Car::Car(Car &&other) noexcept : manufacturer(std::move(other.manufacturer)), // noexcept = the function will not throw any exceptions
-                                 model(std::move(other.model)),
-                                 VIN(std::move(other.VIN)),
-                                 gearbox(std::move(other.gearbox)),
-                                 color(std::move(other.color)),
-                                 year(other.year),
-                                 kilometers(other.kilometers),
-                                 engine_capacity(other.engine_capacity),
-                                 horsepower(other.horsepower)
+// Move constructor
+Car::Car(Car &&other) noexcept
+    : manufacturer(std::move(other.manufacturer)),
+      model(std::move(other.model)),
+      VIN(std::move(other.VIN)),
+      gearbox(std::move(other.gearbox)),
+      color(std::move(other.color)),
+      year(other.year),
+      kilometers(other.kilometers),
+      engine_capacity(other.engine_capacity),
+      horsepower(other.horsepower),
+      features(other.features) // Transfer the ownership of the pointer
 {
-    this->manufacturer = move(other.manufacturer);
-    this->model = move(other.model);
-    this->VIN = move(other.VIN);
-    this->gearbox = move(other.gearbox);
-    this->color = move(other.color);
-    this->year = other.year;
-    this->kilometers = other.kilometers;
-    this->engine_capacity = other.engine_capacity;
-    this->horsepower = other.horsepower;
-    this->features = new string(*other.features); // allocate memory for a new string and move the feature into it
+    // Nullify the 'features' pointer in 'other' to ensure it doesn't get deleted there
+    other.features = nullptr;
 }
 
 void Car::Honk()
