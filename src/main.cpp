@@ -4,9 +4,11 @@
 #include <ctime>
 #include "car.h"
 
+static int money;
+
 Car GenerateCar()
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
+
     int random = rand() % 10 + 1; // random number between 1 and 10
 
     switch (random)
@@ -38,9 +40,87 @@ Car GenerateCar()
 
 int main()
 {
-    Car car1 = Car("BMW", "M3", "WBS8M9C50J5J78404", "Automatic", "Black", 2018, 0, 3000, 431);
-    Car car2 = GenerateCar();
-    car1.Honk();
-    car1.AddFeature("Heated seats, LSD");
+
+    money = 100000;
+    srand(static_cast<unsigned int>(time(nullptr)));
+    Car car = GenerateCar();
+
+    // 1. Using the copy constructor
+    Car carCopy = car;
+
+    // 2. Using the move constructor
+    Car movedCar = std::move(carCopy);
+
+    string name = car.GetManufacturer();
+    if (name == "BMW")
+        money -= 50000;
+    else if (name == "Mercedes")
+        money -= 60000;
+    else if (name == "Audi")
+        money -= 70000;
+    else if (name == "Toyota")
+        money -= 20000;
+    else if (name == "Honda")
+        money -= 25000;
+    else if (name == "Ford")
+        money -= 30000;
+    else if (name == "Chevrolet")
+        money -= 35000;
+    else if (name == "Porsche")
+        money -= 40000;
+    else if (name == "Mazda")
+        money -= 45000;
+    else if (name == "Dodge")
+        money -= 50000;
+    else if (name == "Dacia")
+        money -= 10000;
+    else
+        money -= 10000;
+
+    cout << "You have 100000$ and your car is a " << name << " " << car.GetModel() << endl
+         << "Drive?" << endl;
+    char answer;
+    cin >> answer;
+
+    if (answer == 'y' || answer == 'Y')
+        for (int i = 0; i < 100; i++)
+        {
+            car.Drive();
+
+            // random number between 1 and 20
+            int random = rand() % 20 + 1;
+
+            switch (random)
+            {
+            case 1:
+                car.ChangeTires();
+                money -= 4000;
+                break;
+            case 2:
+                car.ChangeOil();
+                money -= 1000;
+                break;
+            case 3:
+                car.ChangeBrakes();
+                money -= 800;
+                break;
+
+            case 4:
+                car.AddFeature("Infotainment update");
+                money -= 1000;
+                break;
+
+            case 5:
+                car.AddFeature("Repaint");
+                money -= 1000;
+                break;
+            default:
+                money -= 100; // gas
+                break;
+            }
+        }
+    cout << "Balance: " << money << "$" << endl;
+    cout << "Original car kilometers done: " << car.GetKilometers() << endl;
+    cout << "Kilometers done in total by moving the car: " << movedCar.GetKilometers() << endl;
     return 0;
 }
