@@ -38,7 +38,6 @@ Car::Car(const Car &other)
       engine_capacity(other.engine_capacity),
       horsepower(other.horsepower)
 {
-    // Assuming 'features' is a pointer to a single string
     this->features = other.features;
 }
 
@@ -55,7 +54,7 @@ Car::Car(Car &&other) noexcept
       horsepower(other.horsepower),
       features(other.features) // Transfer the ownership of the pointer
 {
-    // use memcpy
+    // Use memcpy
     this->features = other.features;
     other.features = nullptr;
 }
