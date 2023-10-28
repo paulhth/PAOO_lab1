@@ -8,3 +8,4 @@ cd build
 ECHO ======running make
 make
 Tema1.exe
+cd ..
