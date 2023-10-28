@@ -2,6 +2,8 @@
 #include "car.h"
 using namespace std;
 
+extern int money;
+
 Car::Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower)
 {
     this->manufacturer = manufacturer;
@@ -36,7 +38,6 @@ Car::Car(const Car &other)
       engine_capacity(other.engine_capacity),
       horsepower(other.horsepower)
 {
-    // Assuming 'features' is a pointer to a single string
     this->features = other.features;
 }
 
@@ -53,19 +54,21 @@ Car::Car(Car &&other) noexcept
       horsepower(other.horsepower),
       features(other.features) // Transfer the ownership of the pointer
 {
-    // Nullify the 'features' pointer in 'other' to ensure it doesn't get deleted there
+    // Use memcpy
+    this->features = other.features;
     other.features = nullptr;
 }
 
 void Car::Honk()
 {
-    cout << this->manufacturer << " " << this->model << " Honked accidentally" << endl;
+    cout << this->manufacturer << " " << this->model << " Honked at another driver at " << this->GetKilometers() << "km" << endl;
 }
 
 void Car::AddFeature(string feature)
 {
     this->features = new string(feature); // allocate memory for a new string and copy the feature into it
     std::cout << "Added feature: " << feature << std::endl;
+    money -= 1000;
 }
 
 void Car::PrintFeatures()
@@ -75,23 +78,32 @@ void Car::PrintFeatures()
 
 void Car::ChangeTires()
 {
-    cout << this->manufacturer << " " << this->model << " - Tires changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Tires changed - 400$" << endl;
+    money -= 400;
 }
 
 void Car::ChangeOil()
 {
-    cout << this->manufacturer << " " << this->model << " - Oil changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Oil changed - 300$" << endl;
+    money -= 300;
 }
 
 void Car::ChangeBrakes()
 {
-    cout << this->manufacturer << " " << this->model << " - Brakes changed" << endl;
+    cout << this->manufacturer << " " << this->model << " - Brakes changed - 400$" << endl;
+    money -= 400;
 }
 
 void Car::Drive()
 {
     this->kilometers += 100;
-    cout << this->manufacturer << " " << this->model << " - Driven 100km" << endl;
+    cout << this->manufacturer << " " << this->model << " - Driven 100km - 20$" << endl;
+    money -= 20;
+}
+
+int Crash()
+{
+    return 0;
 }
 
 string Car::GetManufacturer()

@@ -48,4 +48,5 @@ public:
     void ChangeTires();
     void ChangeOil();
     void ChangeBrakes();
+    int Crash();
 };
