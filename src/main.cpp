@@ -5,7 +5,8 @@
 #include <cmath>
 #include "car.h"
 
-static int money;
+int money = 100000;
+int sum = 0;
 
 Car GenerateCar()
 {
@@ -41,7 +42,6 @@ Car GenerateCar()
 
 int main()
 {
-    money = 100000;
     srand(static_cast<unsigned int>(time(nullptr)));
     Car car = GenerateCar();
     // 1. Using the copy constructor
@@ -94,40 +94,41 @@ int main()
             {
             case 1:
                 car.ChangeTires();
-                money -= 4000;
+                sum += 400;
                 break;
             case 2:
                 car.ChangeOil();
-                money -= 1000;
+                sum += 300;
                 break;
             case 3:
                 car.ChangeBrakes();
-                money -= 800;
+                sum += 400;
                 break;
 
             case 4:
                 car.AddFeature("Infotainment update - 1000$");
-                money -= 1000;
+                sum += 1000;
                 break;
 
             case 5:
                 car.AddFeature("Repaint: - 1000$");
-                money -= 1000;
+                sum += 1000;
                 break;
             case 6:
                 car.Honk();
                 break;
             case 7:
                 std::cout << "You crashed your car! - 700$" << endl;
-                money -= 7000;
+                sum += 700;
+                money -= 700;
                 break;
             default:
-                money -= 20; // gas
                 break;
             }
         }
         cout << "---------------------STATS---------------------" << endl;
         cout << "Balance: " << money << "$" << endl;
+        cout << "Money spent: " << sum << "$" << endl;
         cout << "Original car kilometers done: " << car.GetKilometers() << endl;
         cout << "Kilometers done before driving the car: " << initialCar.GetKilometers() << endl;
         cout << "Kilometers done in total: " << car.GetKilometers() - initialCar.GetKilometers() << endl;

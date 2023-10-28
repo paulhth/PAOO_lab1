@@ -2,6 +2,8 @@
 #include "car.h"
 using namespace std;
 
+extern int money;
+
 Car::Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower)
 {
     this->manufacturer = manufacturer;
@@ -53,7 +55,8 @@ Car::Car(Car &&other) noexcept
       horsepower(other.horsepower),
       features(other.features) // Transfer the ownership of the pointer
 {
-    // Nullify the 'features' pointer in 'other' to ensure it doesn't get deleted there
+    // use memcpy
+    this->features = other.features;
     other.features = nullptr;
 }
 
@@ -66,6 +69,7 @@ void Car::AddFeature(string feature)
 {
     this->features = new string(feature); // allocate memory for a new string and copy the feature into it
     std::cout << "Added feature: " << feature << std::endl;
+    money -= 1000;
 }
 
 void Car::PrintFeatures()
@@ -75,23 +79,27 @@ void Car::PrintFeatures()
 
 void Car::ChangeTires()
 {
-    cout << this->manufacturer << " " << this->model << " - Tires changed - 4000$" << endl;
+    cout << this->manufacturer << " " << this->model << " - Tires changed - 400$" << endl;
+    money -= 400;
 }
 
 void Car::ChangeOil()
 {
-    cout << this->manufacturer << " " << this->model << " - Oil changed - 1000$" << endl;
+    cout << this->manufacturer << " " << this->model << " - Oil changed - 300$" << endl;
+    money -= 300;
 }
 
 void Car::ChangeBrakes()
 {
-    cout << this->manufacturer << " " << this->model << " - Brakes changed - 800$" << endl;
+    cout << this->manufacturer << " " << this->model << " - Brakes changed - 400$" << endl;
+    money -= 400;
 }
 
 void Car::Drive()
 {
     this->kilometers += 100;
-    cout << this->manufacturer << " " << this->model << " - Driven 100km - 100$" << endl;
+    cout << this->manufacturer << " " << this->model << " - Driven 100km - 20$" << endl;
+    money -= 20;
 }
 
 int Crash()
