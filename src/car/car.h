@@ -7,18 +7,15 @@ class Car
 private:
     string manufacturer;
     string model;
-    string VIN;
-    string gearbox;
     string color;
     int year;
     int kilometers;
     int engine_capacity;
-    int horsepower;
 
     string *features;
 
 public:
-    Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower);
+    Car(string manufacturer, string model, string color, int year, int kilometers, int engine_capacity);
     ~Car();
     Car(const Car &other);
     Car(Car &&other) noexcept;
@@ -30,16 +27,13 @@ public:
     void SetYear(int year);
     void SetKilometers(int kilometers);
     void SetEngineCapacity(int engine_capacity);
-    void SetHorsepower(int horsepower);
 
     string GetManufacturer();
     string GetModel();
-    string GetVIN();
     string getColor();
     int GetYear();
     int GetKilometers();
     int GetEngineCapacity();
-    int GetHorsepower();
 
     void Honk();
     void AddFeature(string feature);
