@@ -1,7 +1,10 @@
-#pragma once
+
+#ifndef CAR_H
+#define CAR_H
+
 #include <iostream>
 using namespace std;
-
+#include "../engine/engine.h"
 #include "../vehicle/vehicle.h"
 
 class Car : public Vehicle
@@ -11,15 +14,19 @@ private:
     string model;
     int year;
 
-    Engine engine;
+    Engine *engine; // pointer to an Engine object
 
 public:
-    Car(string manufacturer, string model, int year, Engine engine);
+    Car(); // default constructor
+    Car(string manufacturer, string model, int year);
     ~Car();
 
     void SetManufacturer(string manufacturer);
     void SetModel(string model);
     void SetYear(int year);
+
+    Car &operator=(const Car &car);
+    void AddEngine(Engine *engine);
 
     string GetManufacturer();
     string GetModel();
@@ -31,3 +38,5 @@ public:
     void Drive() override;
     void ChangeTires() override;
 };
+
+#endif

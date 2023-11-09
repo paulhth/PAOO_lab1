@@ -4,8 +4,8 @@
 #include "../vehicle/vehicle.h"
 using namespace std;
 
-MilitaryCar::MilitaryCar(string manufacturer, string model, int year, Engine engine, bool armored)
-    : Car(manufacturer, model, year, engine)
+MilitaryCar::MilitaryCar(string manufacturer, string model, int year, bool armored)
+    : Car(manufacturer, model, year)
 {
     this->armored = armored;
 }

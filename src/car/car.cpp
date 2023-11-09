@@ -1,20 +1,46 @@
 #include <iostream>
 #include "car.h"
 #include "../vehicle/vehicle.h"
+
 using namespace std;
 
 // constructor
-Car::Car(string manufacturer, string model, int year, Engine engine) : Vehicle()
+Car::Car(string manufacturer, string model, int year) : Vehicle()
 {
     this->manufacturer = manufacturer;
     this->model = model;
     this->year = year;
-    this->engine = engine;
+    this->engine = new Engine();
+}
+
+// generate overloading operator for =
+Car &Car::operator=(const Car &car)
+{
+    // verifiy if the current car is equal to passed car
+    if (this == &car)
+    {
+        return *this;
+    }
+    this->manufacturer = car.manufacturer;
+    this->model = car.model;
+    this->year = car.year;
+    this->engine = car.engine;
+    return *this;
 }
 
 Car::~Car()
 {
     cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
+    if (engine != nullptr)
+    {
+        delete engine;
+    }
+}
+
+// add addEngine method
+void Car::AddEngine(Engine *engine)
+{
+    this->engine = engine;
 }
 
 void Car::Honk()

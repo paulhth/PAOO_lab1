@@ -2,5 +2,4 @@
 
 Vehicle::Vehicle()
 {
-    cout << "Vehicle created" << endl;
 }

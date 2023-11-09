@@ -3,7 +3,7 @@
 
 #ifndef VEHICLE_H
 #define VEHICLE_H
-#pragma once
+
 #include <iostream>
 #include "../engine/engine.h"
 using namespace std;

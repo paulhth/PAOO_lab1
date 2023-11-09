@@ -19,16 +19,19 @@ std::vector<MilitaryCar> operator+(const MilitaryCar &m1, const MilitaryCar &m2)
 int main()
 {
     std::vector<MilitaryCar> convoy1;
+
+    // create 2 cars
+    Car c1("manufacturer1", "model1", 2020);
+    Car c2("manufacturer2", "model2", 2020);
+
+    // c1 = c2;
     // create 2 engines
-    Engine e1(100, 100);
-    Engine e2(100, 100);
+    Engine e1 = Engine(510, 6);
+    Engine e2 = Engine(540, 6);
 
-    // create 2 military cars
-    MilitaryCar m1("manufacturer1", "model1", 2020, e1, true);
-    MilitaryCar m2("manufacturer2", "model2", 2020, e2, true);
+    c1.AddEngine(&e1);
+    c2.AddEngine(&e2);
 
-    // add the 2 military cars to the convoy
-    convoy1 = m1 + m2;
-    std::cout << convoy1[0].GetManufacturer() << std::endl;
+    cout << c1.GetManufacturer() << endl;
     return 0;
 }
