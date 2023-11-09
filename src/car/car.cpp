@@ -14,11 +14,8 @@ Car::Car(string manufacturer, string model, string color, int year, int kilomete
 
 Car::~Car()
 {
-    if (this->features != nullptr && this->manufacturer != "" && this->model != "")
-    {
-        cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
-        delete features;
-    }
+
+    cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
 }
 
 // Copy constructor
@@ -51,17 +48,6 @@ Car::Car(Car &&other) noexcept
 void Car::Honk()
 {
     cout << this->manufacturer << " " << this->model << " Honked at another driver at " << this->GetKilometers() << "km" << endl;
-}
-
-void Car::AddFeature(string feature)
-{
-    this->features = new string(feature); // allocate memory for a new string and copy the feature into it
-    std::cout << "Added feature: " << feature << std::endl;
-}
-
-void Car::PrintFeatures()
-{
-    cout << this->manufacturer << " " << this->model << " - Features: " << *this->features << endl;
 }
 
 void Car::ChangeTires()

@@ -11,6 +11,7 @@ class MilitaryCar : public Car
 public:
     MilitaryCar(string manufacturer, string model, string color, int year, int kilometers, int engine_capacity, bool armored);
     bool IsArmored() const;
+    MilitaryCar CreateConvoy(MilitaryCar m1, MilitaryCar m2);
 
 private:
     bool armored;

@@ -12,7 +12,7 @@ private:
     int kilometers;
     int engine_capacity;
 
-    string *features;
+    string features;
 
 public:
     Car(string manufacturer, string model, string color, int year, int kilometers, int engine_capacity);
