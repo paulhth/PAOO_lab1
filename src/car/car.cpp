@@ -1,109 +1,61 @@
 #include <iostream>
 #include "car.h"
+#include "../vehicle/vehicle.h"
+
 using namespace std;
 
-extern int money;
-
-Car::Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower)
+// constructor
+Car::Car(string manufacturer, string model, int year) : Vehicle()
 {
     this->manufacturer = manufacturer;
     this->model = model;
-    this->VIN = VIN;
-    this->gearbox = gearbox;
-    this->color = color;
     this->year = year;
-    this->kilometers = kilometers;
-    this->engine_capacity = engine_capacity;
-    this->horsepower = horsepower;
+    this->engine = new Engine();
+}
+
+// generate overloading operator for =
+Car &Car::operator=(const Car &car)
+{
+    // verifiy if the current car is equal to passed car
+    if (this == &car)
+    {
+        return *this;
+    }
+    this->manufacturer = car.manufacturer;
+    this->model = car.model;
+    this->year = car.year;
+    this->engine = car.engine;
+    return *this;
 }
 
 Car::~Car()
 {
-    if (this->features != nullptr && this->manufacturer != "" && this->model != "")
+    cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
+    if (engine != nullptr)
     {
-        cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
-        delete features;
+        delete engine;
     }
 }
 
-// Copy constructor
-Car::Car(const Car &other)
-    : manufacturer(other.manufacturer),
-      model(other.model),
-      VIN(other.VIN),
-      gearbox(other.gearbox),
-      color(other.color),
-      year(other.year),
-      kilometers(other.kilometers),
-      engine_capacity(other.engine_capacity),
-      horsepower(other.horsepower)
+// add addEngine method
+void Car::AddEngine(Engine *engine)
 {
-    this->features = other.features;
-}
-
-// Move constructor
-Car::Car(Car &&other) noexcept
-    : manufacturer(std::move(other.manufacturer)),
-      model(std::move(other.model)),
-      VIN(std::move(other.VIN)),
-      gearbox(std::move(other.gearbox)),
-      color(std::move(other.color)),
-      year(other.year),
-      kilometers(other.kilometers),
-      engine_capacity(other.engine_capacity),
-      horsepower(other.horsepower),
-      features(other.features) // Transfer the ownership of the pointer
-{
-    // Use memcpy
-    this->features = other.features;
-    other.features = nullptr;
+    this->engine = engine;
 }
 
 void Car::Honk()
 {
-    cout << this->manufacturer << " " << this->model << " Honked at another driver at " << this->GetKilometers() << "km" << endl;
-}
-
-void Car::AddFeature(string feature)
-{
-    this->features = new string(feature); // allocate memory for a new string and copy the feature into it
-    std::cout << "Added feature: " << feature << std::endl;
-    money -= 1000;
-}
-
-void Car::PrintFeatures()
-{
-    cout << this->manufacturer << " " << this->model << " - Features: " << *this->features << endl;
+    cout << this->manufacturer << " " << this->model << " Honked at another driver" << endl;
 }
 
 void Car::ChangeTires()
 {
-    cout << this->manufacturer << " " << this->model << " - Tires changed - 400$" << endl;
-    money -= 400;
-}
-
-void Car::ChangeOil()
-{
-    cout << this->manufacturer << " " << this->model << " - Oil changed - 300$" << endl;
-    money -= 300;
-}
-
-void Car::ChangeBrakes()
-{
-    cout << this->manufacturer << " " << this->model << " - Brakes changed - 400$" << endl;
-    money -= 400;
+    cout << this->manufacturer << " " << this->model << endl;
 }
 
 void Car::Drive()
 {
-    this->kilometers += 100;
-    cout << this->manufacturer << " " << this->model << " - Driven 100km - 20$" << endl;
-    money -= 20;
-}
-
-int Crash()
-{
-    return 0;
+    cout << "Driving " << this->manufacturer << " " << this->model << endl;
 }
 
 string Car::GetManufacturer()
@@ -116,34 +68,9 @@ string Car::GetModel()
     return this->model;
 }
 
-string Car::GetVIN()
-{
-    return this->VIN;
-}
-
-string Car::getColor()
-{
-    return this->color;
-}
-
 int Car::GetYear()
 {
     return this->year;
-}
-
-int Car::GetKilometers()
-{
-    return this->kilometers;
-}
-
-int Car::GetEngineCapacity()
-{
-    return this->engine_capacity;
-}
-
-int Car::GetHorsepower()
-{
-    return this->horsepower;
 }
 
 void Car::SetManufacturer(string manufacturer)
@@ -156,32 +83,7 @@ void Car::SetModel(string model)
     this->model = model;
 }
 
-void Car::SetVIN(string VIN)
-{
-    this->VIN = VIN;
-}
-
-void Car::SetColor(string color)
-{
-    this->color = color;
-}
-
 void Car::SetYear(int year)
 {
     this->year = year;
-}
-
-void Car::SetKilometers(int kilometers)
-{
-    this->kilometers = kilometers;
-}
-
-void Car::SetEngineCapacity(int engine_capacity)
-{
-    this->engine_capacity = engine_capacity;
-}
-
-void Car::SetHorsepower(int horsepower)
-{
-    this->horsepower = horsepower;
 }

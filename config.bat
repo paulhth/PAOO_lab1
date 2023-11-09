@@ -9,7 +9,7 @@ cd build
 ECHO ============ running make ...
 make
 ECHO ============ running make ... OK
-Tema1.exe
+Tema2.exe
 cd ..
 
 ECHO ============ application finished ============

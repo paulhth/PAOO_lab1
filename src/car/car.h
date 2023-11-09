@@ -1,52 +1,42 @@
-#pragma once
+
+#ifndef CAR_H
+#define CAR_H
+
 #include <iostream>
 using namespace std;
+#include "../engine/engine.h"
+#include "../vehicle/vehicle.h"
 
-class Car
+class Car : public Vehicle
 {
 private:
     string manufacturer;
     string model;
-    string VIN;
-    string gearbox;
-    string color;
     int year;
-    int kilometers;
-    int engine_capacity;
-    int horsepower;
 
-    string *features;
+    Engine *engine; // pointer to an Engine object
 
 public:
-    Car(string manufacturer, string model, string VIN, string gearbox, string color, int year, int kilometers, int engine_capacity, int horsepower);
+    Car(); // default constructor
+    Car(string manufacturer, string model, int year);
     ~Car();
-    Car(const Car &other);
-    Car(Car &&other) noexcept;
 
     void SetManufacturer(string manufacturer);
     void SetModel(string model);
-    void SetVIN(string VIN);
-    void SetColor(string color);
     void SetYear(int year);
-    void SetKilometers(int kilometers);
-    void SetEngineCapacity(int engine_capacity);
-    void SetHorsepower(int horsepower);
+
+    Car &operator=(const Car &car);
+    void AddEngine(Engine *engine);
 
     string GetManufacturer();
     string GetModel();
-    string GetVIN();
-    string getColor();
     int GetYear();
-    int GetKilometers();
-    int GetEngineCapacity();
-    int GetHorsepower();
 
     void Honk();
     void AddFeature(string feature);
     void PrintFeatures();
-    void Drive();
-    void ChangeTires();
-    void ChangeOil();
-    void ChangeBrakes();
-    int Crash();
+    void Drive() override;
+    void ChangeTires() override;
 };
+
+#endif
