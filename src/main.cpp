@@ -18,14 +18,17 @@ std::vector<MilitaryCar> operator+(const MilitaryCar &m1, const MilitaryCar &m2)
 
 int main()
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
-    // Car car1 = Car("BMW", "M3", "Black", 2018, 0, 3000);
-    MilitaryCar militaryCar1 = MilitaryCar("Tank Co.", "Armored Vehicle", "Green", 2022, 500, 1000, true);
-    MilitaryCar militaryCar2 = MilitaryCar("M1 Abrams", "Tank", "Desert Camo", 2022, 500, 1000, true);
-    std::cout << militaryCar2.GetModel() << std::endl;
-    militaryCar2.Honk();
-    std::vector<MilitaryCar> convoy = militaryCar1 + militaryCar2;
-    std::cout << convoy[1].GetModel() << std::endl;
+    std::vector<MilitaryCar> convoy1;
+    // create 2 engines
+    Engine e1(100, 100);
+    Engine e2(100, 100);
 
+    // create 2 military cars
+    MilitaryCar m1("manufacturer1", "model1", 2020, e1, true);
+    MilitaryCar m2("manufacturer2", "model2", 2020, e2, true);
+
+    // add the 2 military cars to the convoy
+    convoy1 = m1 + m2;
+    std::cout << convoy1[0].GetManufacturer() << std::endl;
     return 0;
 }

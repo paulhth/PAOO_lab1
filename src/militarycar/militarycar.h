@@ -9,7 +9,7 @@ using namespace std;
 class MilitaryCar : public Car
 {
 public:
-    MilitaryCar(string manufacturer, string model, string color, int year, int kilometers, int engine_capacity, bool armored);
+    MilitaryCar(string manufacturer, string model, int year, Engine engine, bool armored);
     bool IsArmored() const;
     MilitaryCar CreateConvoy(MilitaryCar m1, MilitaryCar m2);
 

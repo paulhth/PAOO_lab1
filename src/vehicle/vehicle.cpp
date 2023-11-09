@@ -1,1 +1,6 @@
-// no implementations for virtual functions here
+#include "vehicle.h"
+
+Vehicle::Vehicle()
+{
+    cout << "Vehicle created" << endl;
+}
