@@ -6,15 +6,19 @@ using namespace std;
 
 #include "../car/car.h"
 
-class MilitaryCar : public Car
+namespace Auto
 {
-public:
-    MilitaryCar(string manufacturer, string model, int year, bool armored);
-    bool IsArmored() const;
-    MilitaryCar CreateConvoy(MilitaryCar m1, MilitaryCar m2);
+    class MilitaryCar : public Car
+    {
+    public:
+        MilitaryCar(string manufacturer, string model, int year, bool armored);
+        bool IsArmored() const;
+        MilitaryCar CreateConvoy(MilitaryCar m1, MilitaryCar m2);
+        void Drive() override;
+        void ChangeTires() override;
 
-private:
-    bool armored;
-};
-
+    private:
+        bool armored;
+    };
+} // namespace Auto
 #endif

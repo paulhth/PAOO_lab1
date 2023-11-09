@@ -8,13 +8,10 @@
 #include "../engine/engine.h"
 using namespace std;
 
-class Vehicle
+class Vehicle // equivalent to an interface in java
 {
-private:
-    Engine engine;
 
 public:
-    Vehicle();
     virtual void Drive() = 0;
     virtual void ChangeTires() = 0;
 };

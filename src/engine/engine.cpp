@@ -15,5 +15,5 @@ Engine::Engine(int horsepower, int cylinders) // constructor
 
 Engine::~Engine() // destructor
 {
-    std::cout << "Destroyed Engine" << std::endl;
+    // std::cout << "Destroyed Engine" << std::endl;
 }

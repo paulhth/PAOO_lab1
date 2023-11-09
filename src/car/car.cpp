@@ -30,7 +30,7 @@ Car &Car::operator=(const Car &car)
 
 Car::~Car()
 {
-    cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
+    // cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
     if (engine != nullptr)
     {
         delete engine;
@@ -50,7 +50,7 @@ void Car::Honk()
 
 void Car::ChangeTires()
 {
-    cout << this->manufacturer << " " << this->model << endl;
+    cout << "Changing 4 tires for " << this->manufacturer << " " << this->model << endl;
 }
 
 void Car::Drive()
