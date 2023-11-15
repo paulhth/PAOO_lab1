@@ -26,4 +26,4 @@ namespace Auto
     {
         cout << "Changing 6 tires for " << this->GetManufacturer() << " " << this->GetModel() << endl;
     }
-} // namespace Auto
+}

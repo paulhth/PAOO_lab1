@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.10) # Set the minimum version of CMake to 3.10
 
 project(Tema2) # Set the project name to Tema2
 
+set(CMAKE_CXX_STANDARD 17) # Set the c++ version to 17
+
+
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O0") # Set the release flags to -O0 (no optimization)
+
 # Include the car and militarycar directories
 add_subdirectory(car) # Include the car directory
 add_subdirectory(militarycar) # Include the militarycar directory

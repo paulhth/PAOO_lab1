@@ -4,7 +4,16 @@
 
 using namespace std;
 
-// constructor
+/*
+Rule of 5: Copy constructor, copy assignment operator, move constructor, move assignment operator, destructor
+Copy constructor: line 25
+Copy assignment operator: line 39
+Move constructor: line 55
+Move assignment operator: line 64
+Destructor: line 64
+*/
+
+// Basic Constructor
 Car::Car(string manufacturer, string model, int year) : Vehicle()
 {
     this->manufacturer = manufacturer;
@@ -13,21 +22,62 @@ Car::Car(string manufacturer, string model, int year) : Vehicle()
     this->engine = new Engine();
 }
 
-// generate overloading operator for =
-Car &Car::operator=(const Car &car)
+// Copy constructor used to create a new object as a copy of an existing object
+Car::Car(const Car &other)
+    : manufacturer(other.manufacturer), model(other.model), year(other.year)
 {
-    // verifiy if the current car is equal to passed car
-    if (this == &car)
+    if (other.engine)
     {
-        return *this;
+        engine = new Engine(*other.engine); // Create new engine object and copy the data from the parameter object's engine
     }
-    this->manufacturer = car.manufacturer;
-    this->model = car.model;
-    this->year = car.year;
-    this->engine = car.engine;
+    else
+    {
+        engine = nullptr;
+    }
+}
+
+// Copy assignment operator used to overwrite the contents of an existing object with another object's data
+Car &Car::operator=(const Car &other)
+{
+    if (this != &other)
+    {
+        manufacturer = other.manufacturer;
+        model = other.model;
+        year = other.year;
+        Engine *new_engine = other.engine ? new Engine(*other.engine) : nullptr; // Deep copy of engine
+        delete engine;                                                           // Delete old engine
+        engine = new_engine;                                                     // Assign the new engine
+    }
     return *this;
 }
 
+// Move constructor used to create a new object by moving data from an existing (temporary, rvalue) object
+Car::Car(Car &&other) noexcept
+    : manufacturer(std::move(other.manufacturer)),
+      model(std::move(other.model)),
+      year(other.year),
+      engine(other.engine)
+{
+    other.engine = nullptr; // Ensure the parameter object doesn't delete the pointer to engine
+}
+
+// Move assignment operator used like the move constructor but doesn't create a copy
+Car &Car::operator=(Car &&other) noexcept
+{
+    if (this != &other)
+    {
+        delete engine; // Delete current engine
+        // Transfer ownership
+        manufacturer = move(other.manufacturer);
+        model = move(other.model);
+        year = other.year;
+        engine = other.engine;
+        other.engine = nullptr;
+    }
+    return *this;
+}
+
+// Destructor
 Car::~Car()
 {
     // cout << "Destroyed: " << this->manufacturer << " - " << this->model << endl;
@@ -37,7 +87,6 @@ Car::~Car()
     }
 }
 
-// add addEngine method
 void Car::AddEngine(Engine *engine)
 {
     this->engine = engine;

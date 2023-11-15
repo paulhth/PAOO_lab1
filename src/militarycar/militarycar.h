@@ -1,6 +1,6 @@
 #ifndef MILITARYCAR_H
 #define MILITARYCAR_H
-#pragma once
+#pragma once // compiler directive: compile this file only once
 #include <iostream>
 using namespace std;
 
@@ -20,5 +20,5 @@ namespace Auto
     private:
         bool armored;
     };
-} // namespace Auto
+}
 #endif
