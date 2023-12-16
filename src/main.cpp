@@ -67,6 +67,8 @@ void threadFunctionMUTEX(std::counting_semaphore<> &semaphore, std::mutex &mtx, 
     semaphore.release(); // Release semaphore after exiting the critical section
 }
 
+/*-----------------------------------------------*****pointeri RAII (i.e., smart pointers)*****-----------------------------------------------*/
+
 int main()
 {
     std::cout << "/*----------------------------------*****fire de executie si semafoare*****-----------------------------------*/" << std::endl;
@@ -107,6 +109,25 @@ int main()
 
     std::cout << "Final value of shared_data: " << shared_data << std::endl;
 
+    /*-----------------------------------------------**********-----------------------------------------------*/
+    std::cout << "/*----------------------------------*****pointeri RAII (i.e., smart pointers)*****-----------------------------------*/" << std::endl;
+
+    // unique_ptr variant 1:
+    // Car *car_ptr = new Car("Porsche", "Carrera4GTS", 2024); // dynamically allocated object
+    // std::unique_ptr<Car> UniqueCar(car_ptr);                // uniq_ptr is not copyable, but it is movable, expects a dynamically allocated object
+
+    // unique_ptr variant 2:
+    std::unique_ptr<Car> UniqueCar = std::make_unique<Car>("Porsche", "Carrera4GTS", 2024); // make_unique() is a function that creates a unique_ptr
+
+    UniqueCar->Drive();
+    // UniqueCar is automatically destroyed here
+
+    // shared_ptr
+    std::shared_ptr<Car> SharedCar = std::make_shared<Car>("Toyota", "Corolla", 2024);
+    SharedCar->Drive();
+    std::shared_ptr<Car> anotherSharedCar = SharedCar; // Reference count is incremented
+    anotherSharedCar->Drive();
+    // mySharedCar and anotherSharedCar are automatically destroyed here, and the Car is deleted
     return 0;
 }
 
@@ -122,7 +143,21 @@ A mutex is a lock that only one thread can acquire at a time.
 If the main thread were to exit before the child threads finish,
 it would terminate the entire process, and the child threads would be stopped abruptly.
 The problem which threads resolve is the synchronization of multiple tasks.
+
 -----------------------------------------------*****mutex-uri/semafoare RAII*****-----------------------------------------------
 Mutexes and semaphores are resources that must be acquired and released (RAII).
 In C++, this is usually done by creating a class that acquires the resource in its constructor and releases the resource in its destructor.
+The LockGuard class is a simple example of a class that acquires a mutex in its constructor and releases the mutex in its destructor.
+
+
+-----------------------------------------------*****pointeri RAII (i.e., smart pointers)*****-----------------------------------------------
+These smart pointers are part of C++'s RAII idiom and manage dynamic memory allocation to ensure that memory is properly released when it's no longer needed.
+std::unique_ptr is a smart pointer that owns and manages another object through a pointer and disposes of
+that object when the unique_ptr goes out of scope.
+
+std::shared_ptr is a smart pointer that retains shared ownership of an object through a pointer. Multiple shared_ptr objects may own the same object.
+The object is destroyed and its memory deallocated when either of the following happens:
+
+The last remaining shared_ptr owning the object is destroyed.
+The last remaining shared_ptr owning the object is assigned another pointer via the operator= or reset().
 */
