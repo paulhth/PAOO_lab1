@@ -1,3 +1,7 @@
-# PAOO Tema1 - tema_1 branch
+# PAOO Paul Horvath
 
-# Tema 2 - main branch
+Tema 1 - tema_1 branch
+
+Tema 2 - tema_2 branch
+
+Tema 3 - in development
