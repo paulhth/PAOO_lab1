@@ -145,10 +145,17 @@ it would terminate the entire process, and the child threads would be stopped ab
 The problem which threads resolve is the synchronization of multiple tasks.
 
 -----------------------------------------------*****mutex-uri/semafoare RAII*****-----------------------------------------------
+Mutex is used to protect shared data from being simultaneously accessed by multiple threads
 Mutexes and semaphores are resources that must be acquired and released (RAII).
 In C++, this is usually done by creating a class that acquires the resource in its constructor and releases the resource in its destructor.
 The LockGuard class is a simple example of a class that acquires a mutex in its constructor and releases the mutex in its destructor.
 
+Only one thread can acquire the mutex at a time. If a thread tries to acquire a mutex that is already acquired by another thread,
+the thread will block until the mutex is released by the other thread.
+
+It is non-recursive, meaning that if a thread tries to acquire a mutex that it already owns, the thread will block forever.
+
+Deadlock occurs when two or more threads are blocked forever, waiting for each other.
 
 -----------------------------------------------*****pointeri RAII (i.e., smart pointers)*****-----------------------------------------------
 These smart pointers are part of C++'s RAII idiom and manage dynamic memory allocation to ensure that memory is properly released when it's no longer needed.
@@ -160,4 +167,13 @@ The object is destroyed and its memory deallocated when either of the following 
 
 The last remaining shared_ptr owning the object is destroyed.
 The last remaining shared_ptr owning the object is assigned another pointer via the operator= or reset().
+
+unique and shared increment the reference count when created/copied. Decrement the reference count when destroyed.
+When the reference count reaches 0, the object is destroyed.
+
+*a *b *c point to the same object (shared_ptr). If *a *b *c are destroyed, the object is destroyed.
+*a points to an object (unique_ptr). If *a is destroyed, the object is destroyed.
+
+The reason for smart pointers is to avoid memory leaks. If you use raw pointers, you have to manually delete the object which might be
+forgotten or done incorrectly. Smart pointers automatically delete the object when it goes out of scope.
 */
